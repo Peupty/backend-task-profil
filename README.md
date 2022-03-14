@@ -138,6 +138,28 @@ _This is just a sample data and should not be used to verify solutions_
 -   You are free to use any third-party libraries
 -   Provide README with examples how to use your script
 -   Write Python code that conforms to PEP 8
--   Remember about validating input data, 
+-   Remember about validating input data,
 -   Please handle possible exceptions within script in a user-friendly way
 -   Please put your solution in a private repository on Github and invite `reviewer@profil-software.com` as a collaborator (any role with at least read-only access to code) -> https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository
+
+
+# Usage
+
+`python script.py grouped-stats` will get data of teams grouped by divisions and print them to the stdout
+
+`python script.py players-stats --name John`
+will get data of highest and tallest players with first or last name "John"
+
+`python script.py teams-stats --season 2001`
+will get statistics for a given season
+
+optional arguments that can be used with this commands:
+`--output` - outputs the data to the file with given format:
+- `csv`
+- `sqlite`
+- `json`
+
+or prints it to stdout with `--output stdout` or no `--output`
+
+for example `python script.py teams-stats --season 2001 --output json`
+will create a json file with 2001 seasons statistics
