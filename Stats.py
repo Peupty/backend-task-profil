@@ -43,6 +43,7 @@ class GroupedTeamsStats(Stats):
             'https://www.balldontlie.io/api/v1/teams?per_page=100&page='
         )
         self.data = dict()
+        self.run()
 
     def process_data(self, data):
         for el in data:
@@ -77,6 +78,7 @@ class PlayersStats(Stats):
             'tallest': None,
             'heaviest': None
         }
+        self.run()
 
     def process_data(self, data):
         heaviest, tallest = 0, 0
@@ -111,7 +113,7 @@ class PlayersStats(Stats):
         )
 
 
-class SeasonsStats(Stats):
+class TeamsStats(Stats):
     def __init__(self, season, output_type):
         super().__init__(
             'https://www.balldontlie.io/api/v1/games?per_page=100&seasons[]={}&page='
@@ -125,6 +127,7 @@ class SeasonsStats(Stats):
             'json': self.output_json,
             'sqlite': self.output_sqlite
         }
+        self.run()
 
     def process_data(self, data):
         for el in data:
