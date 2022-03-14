@@ -1,6 +1,6 @@
 import argparse
 
-from Stats import GroupedTeamsStats, PlayersStats, SeasonsStats
+from Stats import GroupedTeamsStats, PlayersStats, TeamsStats
 
 
 class Program():
@@ -9,6 +9,11 @@ class Program():
         dest='command',
     )
     args: None
+    commands = {
+        'grouped': 'grouped-teams',
+        'players': 'players-stats',
+        'teams': 'teams-stats'
+    }
 
     def __init__(self):
         self.__create_subparsers()
@@ -16,10 +21,10 @@ class Program():
         self.__run()
 
     def __create_subparsers(self):
-        self.subparsers.add_parser('grouped-stats')
+        self.subparsers.add_parser(self.commands['grouped'])
 
         players_stats_parser = self.subparsers.add_parser(
-            'players-stats',
+            self.commands['players']
         )
         players_stats_parser.add_argument(
             '--name',
@@ -28,7 +33,7 @@ class Program():
         )
 
         teams_stats_parser = self.subparsers.add_parser(
-            'teams-stats'
+            self.commands['teams']
         )
         teams_stats_parser.add_argument(
             '--season',
@@ -50,12 +55,12 @@ class Program():
 
         if command is None:
             return self.parser.print_help()
-        if command == 'grouped-stats':
+        if command == self.commands['grouped']:
             return GroupedTeamsStats()
-        if command == 'players-stats':
+        if command == self.commands['players']:
             return PlayersStats(self.args.name)
-        if command == 'teams-stats':
-            return SeasonsStats(self.args.season, self.args.output)
+        if command == self.commands['teams']:
+            return TeamsStats(self.args.season, self.args.output)
 
 
 if __name__ == '__main__':
