@@ -22,7 +22,6 @@ class Stats:
 
         return data['data']
 
-
     def generate_url(self):
         return '{}{}'.format(self.base_url, self.page)
 
@@ -165,7 +164,7 @@ class TeamsStats(Stats):
                 print('\t {}: {}'.format(field.replace('_', ' '), value))
 
     def output_csv(self):
-        with open('teams-stats.csv', 'w') as f:
+        with open('output.csv', 'w') as f:
             writer = csv.writer(f)
             writer.writerow(
                 [
@@ -191,19 +190,23 @@ class TeamsStats(Stats):
         data_json = []
 
         for team_name, values in self.data.items():
-            d = {'team_name': '{} ({})'.format(team_name, values.pop('abbr'))}
+            d = {
+                'team_name': '{} ({})'.format(
+                    team_name, values.pop('abbr')
+                )
+            }
 
             for field, val in values.items():
                 d[field] = val
 
             data_json.append(d)
 
-        with open('teams-stats.json', 'w') as f:
+        with open('output.json', 'w') as f:
             json.dump(data_json, f)
 
     def output_sqlite(self):
         try:
-            con = sqlite3.connect('seasons-stats.sqlite')
+            con = sqlite3.connect('output.sqlite')
             cur = con.cursor()
             cur.execute(
                 '''CREATE TABLE IF NOT EXISTS teams_stats
