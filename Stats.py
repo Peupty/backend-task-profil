@@ -165,7 +165,7 @@ class TeamsStats(Stats):
 
     def output_csv(self):
         with open('output.csv', 'w') as f:
-            writer = csv.writer(f)
+            writer = csv.writer(f, delimiter="|")
             writer.writerow(
                 [
                     'Team name',
